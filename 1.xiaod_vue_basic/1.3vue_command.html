@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+</head>
+<body>
+	<div id="app"></div>
+	<script type="text/javascript" src="vue.js"></script>
+	<script type="text/javascript">
+		
+		new Vue({
+			el:'#app',
+			template:`
+			<div>
+					<!--测试v-text-->
+					<div v-text='mytext'></div>
+					</hr>
+
+					<!--测试v-html-->
+					<div v-html='myhtml'></div>
+
+					<!--测试checkvif-->
+				    <button v-if='checkvif'>测试checkvif</button>
+
+					<!--测试v-if  v-else-if  v-else-->
+					<button v-if='num==1'>测试v-if num=1</button>
+					<button v-else-if='num==2'>测试v-else-ifnum=2</button>
+					<button v-else>测试v-else</button>
+
+					<!--测试v-show-->
+					<div v-show='checkshow'>我是V-SHOW</div>
+
+					<!--循环数组-->
+					<ul>
+					<li v-for='(item,index) in arrayfor'>
+					{{ item }}-{{index}}
+					</li>
+					</ul>
+					<ul>
+
+					<!--循环对象-->
+					<li v-for='(oj,key) in ojfor'>
+					{{key}}:{{oj}}
+					</li>
+					</ul>
+			</div>
+			`,
+			data:function(){
+				return {
+					mytext:'<h1>我这里是v-text</h1>',
+					myhtml:'<h1>我这里是v-html</h1>',
+					checkvif:true,//控制 checkvif button checkvif true显示 false隐藏
+					num:6,
+					checkshow:true,// true->display:block false->display:none
+					arrayfor:['篮球','足球','乒乓球'],
+					ojfor:{play:'篮球',people:'ming',age:'19'}
+				}
+			}
+		})
+	</script>
+</body>
+</html>

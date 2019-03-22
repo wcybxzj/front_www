@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+	<div id="app0"></div>
+	<div id="app1"></div>
+	<div id="app2"></div>
+	<div id="app3"></div>
+	<div id="app4"></div>
+	<div id="app5"></div>
+	<script type="text/javascript" src="vue.js"></script>
+	<script type="text/javascript">
+		console.log(this)
+		//测试1:单向数据绑定
+        new Vue({
+            el:"#app0",
+            template:`
+				<div>
+				单向数据绑定
+				<!--单向数据绑定常规写法: v-bind:value="name123" 意思是说name123是vue中data中声明的变量-->
+                <!--单向数据绑定简写: class="name123" 这个数v-bind的简写意思是绑定class属性内容是name-->
+				<input type='text' v-bind:value="name123"  :class="name123"><br>
+                <hr><hr><hr><hr>
+                </div>
+			`,
+            data:function(){
+                return {
+                    name123:'hello11111'
+                }
+            }
+        })
+
+		//测试2:单向和双向数据绑定的区别
+        new Vue({
+            el:"#app1",
+            template:`
+            <div>
+			<!--单向数据绑定:(在浏览器中修改这个值只有这个位置的内容改变,不会改变内存中name123的值)-->
+            <input type='text' v-bind:value="name123"  :class="name123"><br>
+            <!--双向数据绑定:(在浏览器中修改这个值只有这个位置的内容改变,会改变内存中name123的值)-->
+            <input type='text' v-model="name123"></br>
+            普通坑位:
+			{{ name123 }}
+            <hr><hr><hr><hr>
+            </div>
+            `,
+            data:function(){
+                return {
+                    name123:'hello11111'
+                }
+            }
+        })
+
+		//测试3:事件绑定
+        new Vue({
+            el:"#app2",
+            template:`
+            <div>
+            <input type='text' v-bind:value="name123"  :class="name123"><br>
+            <input type='text' v-model="name123"></br>
+            {{ name123 }}
+
+            <button v-on:click="name123='直接修改变量name123'">点击我改变name123变量</button>
+
+            <button v-on:click="change">点击我改变name123变量</button>
+            <hr><hr><hr><hr>
+            </div>
+            `,
+            data:function(){
+                return {
+                    name123:'hello11111'
+                }
+            },
+            methods:{
+				change:function(){
+					console.log(this)
+					this.name123='methods修改变量name123'
+				},
+			}
+        })
+
+		//原来的代码就是上面几个的总和
+		new Vue({
+			el:"#app3",
+			template:`
+				<div>
+				单向数据绑定
+				<input type='text' v-bind:value="name" :class="name"><br>
+
+				双向数据绑定
+				<input type='text' v-model="name"></br>
+				{{ name }}
+
+				<button v-on:click="change">点击我改变name变量</button>
+				</div>
+
+			`,
+			data:function(){
+				return {
+					name:'hello'
+				}
+			},
+			methods:{
+				change:function(){
+					console.log(this)
+					this.name='我改变了，是在方法属性里面定义的方法'
+				},
+			}
+		})
+	</script>
+</body>
+</html>

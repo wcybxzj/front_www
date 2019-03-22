@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+</head>
+<body>
+	<!-- 留坑 -->
+	<div id="app"></div>
+
+	<!-- 引包 -->
+	<script type="text/javascript" src="vue.js"></script>
+	<script type="text/javascript">
+		// 实例化启动vue
+		new Vue({
+			el:'#app',//目的的，可以识别类名、id名和标签名，如果做到极致优化可以直接用document.getElementById获取
+			template:`     
+			<div>
+				<div>11我这里是模板内容{{ msg }}</div>
+				<div>111</div>
+			</div>
+			<!--<div>这里不会显示因为vue的tempalte只能识别第一个DOM 如果chrome中安装了vue-tools在f12中会看到报错</div>-->
+			`,//模板内容,根节点只能有一个
+			data:function(){
+				return {
+					msg:'Hello Vue!11111111111'
+				}
+			}
+		})
+	</script>
+</body>
+</html>

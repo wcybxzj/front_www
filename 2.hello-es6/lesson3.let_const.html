@@ -1,0 +1,51 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <script>
+        window.onload=function () {
+            var aBtn=document.getElementsByTagName('input');
+            //版本1:(失败)
+            //期望的是:aBtn[0]=0   aBtn[1]=1  aBtn[2]=2
+            //但是实际:aBtn[0]=3 aBtn[1]=3 aBtn[2]=3
+            //因为var i是可以重复声明并且没有块作用域的
+            /*
+            for (var i=0; i<aBtn.length; i++){
+                aBtn[i].onclick=function(){
+                    alert(i);
+                }
+            }
+            */
+
+            //版本2:(成功但是麻烦)
+            //解决方法1:利用var在的作用域是函数级的
+            /*
+            for (var i=0; i<aBtn.length; i++){
+                (function (i) {
+                    aBtn[i].onclick=function(){
+                        alert(i);
+                    }
+                })(i)
+            }
+            */
+
+            //版本3:(成功let版本)
+            for (let i=0; i<aBtn.length; i++){
+                aBtn[i].onclick=function(){
+                    alert(i);
+                }
+            }
+
+
+        }
+    </script>
+
+</head>
+<body>
+<input type="button" value="button1">
+<input type="button" value="button2">
+<input type="button" value="button3">
+</body>
+
+</html>

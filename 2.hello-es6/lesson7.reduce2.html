@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script>
+        //reduce 汇总 一堆出来一个
+        //用于比如，算个总数，算个平均
+
+        //例1:求和
+        let arr=[12,13,14,15];
+        let result = arr.reduce(function (tmp, item, index) {
+            console.log(tmp+','+item+','+index);
+            return tmp+item;
+        })
+        console.log("总数:",result);
+
+        //例2:平均数
+        result = arr.reduce(function (tmp, item, index) {
+            console.log(tmp+','+item+','+index);
+            if (index!=arr.length-1){//不是最后一次
+                return (tmp+item)/arr.length;
+            } else{
+                return tmp+item;
+
+            }
+
+        })
+        console.log("平均数:",result);
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+1.安装apt
+apt install npm
+npm install -g cnpm --registry=https://registry.npm.taobao.org
+cnpm install vue
+# 全局安装 vue-cli
+cnpm install --global vue-cli
+==============================================================================
+
+2.创建一个新项目
+# 创建一个基于 webpack 模板的新项目
+# 这里需要进行一些配置，默认回车即可
+cd /root/www
+vue init webpack my-project
+
+cd my-project
+cnpm install
+npm run dev
+http://127.0.0.1:9528
+
+==============================================================================
+3.运行拿趣用deploy项目
+windows:
+192.168.1.177 d.com
+192.168.1.177 d2.com
+
+ubuntu:
+cd /root/www/deoloyH5
+cnpm install
+cnpm run dev
+http://127.0.0.1:9528
+
+==============================================================================
+4.nginx加一个方向在vue前面
+vim /usr/local/nginx/conf/nginx.conf
+server {
+    listen 8083;
+    server_name d.com;
+    location / {
+	        proxy_pass         http://127.0.0.1:9528;
+	        proxy_redirect     off;
+	        proxy_set_header   Host             $host;
+	        proxy_set_header   X-Real-IP        $remote_addr;
+	        proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
+	    }
+}
+==============================================================================
+5.为了避免访问d.com时候报错Invalid Host header
+增加不检查host那一行
+	watchOptions: {
+	  poll: config.dev.poll,
+	},
+disableHostCheck: true
+
+windows:
+http://d.com:8083
+==============================================================================
+6.修改vue访问depoly golang admin server端
+cd /root/www/deoloyH5
+vim ./src/service/api.js
+const apiURL = 'http://d2.com:31695'
+==============================================================================
+7.idea启动 golang server和client
+ubuntu:
+cd deploy
+cp  -rf data bin
+cp  -rf data bin_client
+bin_client的config.json中的IsMaster:false
+
+idea:
+edit configurations:
+Run kind:Directory
+Direcotry:/root/www/go_www/src/zuji/deploy
+Output  Direcotry:/root/www/go_www/src/zuji/deploy/bin
+Working Direcotry:/root/www/go_www/src/zuji/deploy/bin
+
+edit configurations:
+Run kind:Directory
+Direcotry:/root/www/go_www/src/zuji/deploy
+Output  Direcotry:/root/www/go_www/src/zuji/deploy/bin_client
+Working Direcotry:/root/www/go_www/src/zuji/deploy/bin_client
+==============================================================================
+8.测试下CORS实现ajax跨域(看纸质笔记)
+windows:
+http://d.com:8083

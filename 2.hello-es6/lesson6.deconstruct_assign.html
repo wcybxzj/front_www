@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+
+    <script>
+        /*
+        解构赋值规则
+        左右两个边结构必须一样
+        右边必须是个东西
+        声明和赋值赋值不能分开，必须在一句话里
+        */
+
+        //例子1:数组-解构赋值写法
+        let arr=[1,2,3];
+
+        //麻烦的写法
+        // let a = arr[0];
+        // let b = arr[1];
+        // let c = arr[2];
+
+        //解构赋值写法
+        let [a,b,c] = [1,2,3];
+        console.log(a,b,c);
+
+
+        //例子2:json-解构赋值写法
+        let {d,e,f}={d:11,e:22,f:33};
+        console.log(d,e,f);
+
+
+        //例子3:复杂数据-解构赋值写法
+        let [{h, i},[j,k,l],m,n]=[{h:12,i:5},[12,5,8],8,'dabing'];
+        console.log(h, i,j,k,l,m,n);
+
+        let [json1,arr1,num1,str1]=[{h:12,i:5},[12,5,8],8,'dabing'];
+        console.log(json1, arr1,num1,str1);
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

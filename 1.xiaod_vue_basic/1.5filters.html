@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>过滤器</title>
+</head>
+<body>
+		<div id="app">
+			我输入的：<input type="text" name="" v-model='instring'></br>
+			我输出的：{{ instring }}</br>
+			{{ instring | reversal('翻转输出：')}}
+		</div>
+
+		<script type="text/javascript" src="vue.js"></script>
+		<script type="text/javascript">
+
+			console.log(this)
+			Vue.filter('reversal',function(val,arg2){
+				return  arg2+val.split('').reverse().join('')
+			})
+			new Vue({
+				el:'#app',
+				data(){
+					return {
+						instring:''
+					}
+				},
+				created(){
+					console.log(this,'vue的')
+				}
+				// filters:{
+				// 	reversal(val,arg2){
+				// 		//          字符串转数组  翻转    数组转字符串
+				// 		return  arg2+val.split('').reverse().join('')
+				// 	}
+				// }
+			})
+		</script>
+</body>
+</html>

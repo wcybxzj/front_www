@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>购物车</title>
+	<style type="text/css">
+		span{cursor: pointer;}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<div>
+			课程：<input type="text" name="" v-model='course'>
+			价钱：<input type="text" name="" v-model='price'>
+			<button @click='addcourse'>添加商品</button>
+		</div>
+		<ul>
+			<li v-for='(list,index) in classlist'>
+				课程名称：{{list.text}}---价格:{{list.price}}
+				<button @click='addtochat(index)'>添加到购物车</button>
+			</li>
+		</ul>
+		<chat :chatarr='chatarr'></chat>
+	</div>
+	<script type="text/javascript" src="vue.js"></script>
+	<script type="text/javascript">
+		var Chat={
+			props:['chatarr'],
+			template:`
+				<div>
+					购物车
+					<table border="1">
+						<tr>
+							<th>选中</th>
+							<th>课程</th>
+							<th>数量</th>
+							<th>价格</th>
+						</tr>
+						<tr v-for="(chat,index) in chatarr">
+							<td><input type="checkbox" name="" v-model='chat.active'></td>
+							<td>{{chat.text}}</td>
+							<td>
+								<span @click='reducecount(index)'>-</span>
+								{{chat.count}}
+								<span @click='addcount(index)'>+</span>
+
+							</td>
+							<td>{{chat.count * chat.price}}</td>
+						</tr>
+						<tr>
+							<td colspan='2'>选中的课程：{{activeCount}}/{{count}}</td>
+							<td colspan='2'>需付金额：{{totalpirce}}</td>
+						</tr>
+					</table>
+				</div>
+
+			`,
+			//计算属性
+			computed:{
+				//已选中课程
+				activeCount(){
+					return this.chatarr.filter(v=>v.active).length
+				},
+				//购物车存在多少项课程
+				count(){
+					return this.chatarr.length
+				},
+				//总价
+				totalpirce(){
+					let total=0
+					this.chatarr.forEach(v=>{
+						if(v.active){
+							total+=v.price*v.count
+						}
+					})
+					return total
+				}
+			},
+			watch:{
+				//监听购物车数组，每当监听到改变就存进本地存储做数据持久化
+				chatarr:{
+					handler(){
+						window.localStorage.setItem('chat',JSON.stringify(this.chatarr))
+					},
+					deep:true
+				}
+			},
+			methods:{
+				//增加购物车商品数量
+				addcount(index){
+					this.chatarr[index].count++
+				},
+				//减少购物车商品数量
+				reducecount(index){
+					if(this.chatarr[index].count>1){
+						this.chatarr[index].count--
+					}else{
+						if(window.confirm(`是否删除${this.chatarr[index].text}?`)){
+							this.chatarr.splice(index,1)
+						}
+					}
+				}
+			}
+		}
+
+		new Vue({
+			el:'#app',
+			components:{
+				Chat
+			},
+			data(){
+				return {
+					classlist:[
+						{text:'springcloud',price:20},
+						{text:'vue',price:30},
+						{text:'js',price:40},
+						{text:'php',price:50},
+					],
+					course:'',
+					price:'',
+					chatarr:[],//购物车数组
+				}
+			},
+			methods:{
+				//添加课程
+				addcourse(){
+					//插入数据到我们的商品库
+					this.classlist.push({text:this.course,price:this.price})
+					//清空我们刚输入的商品信息
+					this.course=''
+					this.price=''
+				},
+				//添加到购物车
+				addtochat(index){
+					const goods=this.classlist[index]
+					const result=this.chatarr.find(v=>v.text==goods.text)
+					if(result){
+						result.count+=1
+					}else{
+						this.chatarr.push({...goods,count:1,active:true})
+					}
+				},
+			
+			},
+			created(){
+				//利用本地存储做数据持久化  获取本地存储数据
+				this.chatarr=JSON.parse(window.localStorage.getItem('chat')) || []
+			}
+		})
+	</script>
+</body>
+</html>

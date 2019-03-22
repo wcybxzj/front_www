@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>路由的安装和使用</title>
+</head>
+<body>
+	<div id="app"></div>
+
+	<script type="text/javascript" src="../vue.js"></script>
+	<!-- 引入路由插件 -->
+	<script type="text/javascript" src="../vue-router.js"></script>
+
+	<!--测试方式http://192.168.1.177/vue_www/1.xiaod_basic/3.2install_use_router/my_index.html#/login-->
+
+	<script type="text/javascript">
+		var Login={
+			template:`
+				<div>我是登录页面</div>
+			`,
+		}
+
+		//安装路由插件
+		Vue.use(VueRouter);
+
+		//创建路由对象
+		var router = new VueRouter({
+			//配置路由
+			routes:[
+				{path:'/login', name:'login', component:Login}
+			]
+		})
+
+		new Vue({
+			el:'#app',
+			router,//使用路由
+			template:`
+				<div>
+					<!--给路由留坑位--->
+					<router-view></router-view>
+				</div>
+			`,
+			data(){
+				return {}
+			},
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+[腾讯课堂]2019全新vue2.5核心技术全方位讲解+实战精讲教程
+lesson2:引包 留坑 实例化 插入表达式
+cd /tmp
+cnpm install vue
+cp node_modules/vue/dist/vue.js /root/www/vue_www/1.xiaod_basic
+
+
+
+==================================================================
+lesson13:安装使用路由
+1.下载
+cd /tmp
+cnpm i vue-router -S
+cp /tmp/node_modules/vue-router/dist/vue-router.js /root/www/vue_www/1.xiaod_basic/
+2:安装插件Vue.use(VueRouter);
+3:创建路由对象 var router = new VueRouter();
+4:配置路由规则 router.addRoutes([路由对象]);
+路由对象{path:'锚点值',component:要(填坑)显示的组件}
+5:将配置好的路由对象交给Vue
+- 在options中传递-> key叫做 router
+6:留坑(使用组件) <router-view></router-view>
+
+==================================================================
+==================================================================
+==================================================================

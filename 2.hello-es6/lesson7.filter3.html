@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script>
+        //filter 过滤器 保留为true的
+
+        //例1:
+        let arr = [12, 5, 8, 99, 27, 36, 75];
+
+        /*
+        let result = arr.filter(item=>{
+            // if (item%3==0){
+            //     return true
+            // }else{
+            //     return false
+            // }
+
+            //简写
+            return item%3==0
+        })
+        */
+
+        //缩写
+        let result = arr.filter(item=> item%3==0)
+
+        console.log(arr);
+        console.log(result);
+
+        //例2:
+        let arr2=[
+            {title:'男士衬衫',price:75},
+            {title:'女士手包',price:57842},
+            {title:'男士手包',price:65},
+            {title:'女士鞋',price:27531},
+        ];
+
+        let result2 = arr2.filter(json=>json.price>=10000);
+        console.log(result2);
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

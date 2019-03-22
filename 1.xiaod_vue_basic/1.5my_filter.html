@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app0">
+
+
+        我输入的:
+        <input type="text" name="" v-model="instring"><br>
+
+        我输出的:{{instring}}<br>
+
+        翻转测试1:{{instring|reversal}}<br>
+
+        {{instring|reversal2('翻转测试2:')}}<br>
+
+        {{instring|reversal3('翻转测试3:')}}<br>
+
+
+    </div>
+
+    <script type="text/javascript" src="vue.js"></script>
+
+    <script type="text/javascript">
+
+        <!--组件内的过滤器-->
+        new Vue({
+            el:"#app0",
+            data(){
+                return {
+                    instring:''
+                }
+            },
+            filters:{
+                reversal(val){
+                    //string->arr 数据内容翻转 arr->string
+                    return val.split('').reverse().join('')
+                },
+                reversal2(arg1,arg2){
+                    //string->arr 数据内容翻转 arr->string
+                    return arg2 + arg1.split('').reverse().join('')
+                }
+            }
+
+        })
+
+        <!--全局filter-->
+         Vue.filter("reversal3",function (arg1, arg2) {
+             return arg2 + arg1.split('').reverse().join('')
+         })
+    </script>
+
+</body>
+</html>

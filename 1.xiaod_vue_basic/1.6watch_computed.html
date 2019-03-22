@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+</head>
+<body>
+	<div id="app">
+		<div>watch监听数据</div>
+		<input type="text" name="" v-model='msg.text'>
+		<div>computed计算属性</div>
+		(<input type="text" name="" v-model='n1'>+
+		<input type="text" name="" v-model='n2'>)*
+		<input type="text" name="" v-model='n3'>={{result}}
+	</div>
+
+
+	<script type="text/javascript" src="vue.js"></script>
+	<script type="text/javascript">
+		
+		new Vue({
+			el:'#app',
+			data(){
+				return {
+					msg:{text:''},
+					n1:'',
+					n2:'',
+					n3:'1'
+				}
+			},
+			computed:{
+				result(){
+					return (Number(this.n1)+Number(this.n2))*Number(this.n3)
+				}
+			},
+			watch:{
+				// msg(newval,oldval){
+				// 	if(newval.text=='love'){
+				// 		alert(newval.text)
+				// 	}
+				// }
+				msg:{
+					handler(newval,oldval){
+						if(newval.text=='love'){
+							alert(newval.text)
+						}
+					},
+					deep:true
+				}
+			}
+		})
+	</script>
+</body>
+</html>

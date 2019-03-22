@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>非父子组件的通信</title>
+</head>
+<body>
+	<div id="app">
+		
+	</div>
+
+	<script type="text/javascript" src="vue.js"></script>
+	<script type="text/javascript">
+		//非亲缘组件通信需要一个中间组件来做桥梁
+		/*
+		第十讲===>非父子组件之间的通信
+		- 创建一个空实例（bus中央事件总线也可以叫中间组件）
+		- 利用$emit  $on的触发和监听事件实现非父子组件的通信
+		Vue.prototype.$bus=new Vue()//在vue上面挂载一个$bus作为中央处理组件
+		this.$bus.$emit('自定义事件名','传递的数据')//触发自定义事件传递数据
+		this.$bus.$on('自定义事件名'，fn)//监听自定义事件获取数据
+		*/
+
+		Vue.prototype.$bus=new Vue()
+		var MyHeader={
+			template: `<div>
+						我是头部:{{ headermsg }}
+						</div>`,
+			data(){
+				return {
+					headermsg:'我是头部的信息'
+				}
+			},
+			created(){
+				//$on:绑定
+
+				// //写法1:
+				// //这里注意必须将this存到self
+				// var self=this
+				// this.$bus.$on('sending', function (val) {
+				// 	//this.headermsg=val//失败, 因为这里的this指向的是$bus
+				// 	self.headermsg=val
+				// })
+
+				//写法2:ES6写法
+				this.$bus.$on('sending', val=>{
+					this.headermsg=val
+				})
+
+			}
+		}
+
+		var MyBody={
+			template: `<div>我是身体:</div>`,
+		}
+
+		var MyFooter={
+			template: `<div>
+						我是底部:
+						<button @click='sendhead'>
+						底部要跟头部通信
+						</button>
+						</div>`,
+			methods:{
+				//
+				sendhead(){
+					this.$bus.$emit('sending', '我是底部的数据')
+				}
+			}
+		}
+
+		new Vue({
+			el:'#app',
+			components:{
+				MyHeader,
+				MyBody,
+				MyFooter
+			},
+			template:`
+				<div>
+					<my-header></my-header><hr>
+					<my-body></my-body><hr>
+					<my-footer></my-footer><hr>
+				</div>
+			`,
+			data(){
+				return {}
+			},
+		})
+	</script>
+</body>
+</html>

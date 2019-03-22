@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>非父子组件的通信</title>
+</head>
+<body>
+	<div id="app">
+		
+	</div>
+
+	<script type="text/javascript" src="vue.js"></script>
+	<script type="text/javascript">
+
+		Vue.prototype.$bus=new Vue()
+		var MyHeader={
+			template:`
+				<div>
+				我是头部
+				{{ headermsg }}
+				</div>
+			`,
+			data(){
+				return {
+					headermsg:'我是头部的信息'
+				}
+			},
+			created(){
+				// var self=this
+				// self.$bus.$on('sending',function(val){
+				// 	self.headermsg=val
+				// })
+				this.$bus.$on('sending',val=>{
+					this.headermsg=val
+				})
+			}
+		}
+		var MyBody={
+			template:`
+				<div>我是身体</div>
+			`,
+		}
+		var MyFooter={
+			template:`
+				<div>我是底部<button @click='sendhead'>我要跟头部通信</button></div>
+			`,
+			methods:{
+				sendhead(){
+					this.$bus.$emit('sending','我是底部的数据')
+				}
+			}
+		}
+		new Vue({
+			el:'#app',
+			components:{
+				MyHeader,
+				MyBody,
+				MyFooter
+			},
+			template:`
+				<div>
+					<my-header></my-header><hr>
+					<my-body></my-body><hr>
+					<my-footer></my-footer>
+				</div>
+			`,
+			data(){
+				return {}
+			},
+		})
+	</script>
+</body>
+</html>

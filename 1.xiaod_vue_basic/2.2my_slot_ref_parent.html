@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>组件化开发</title>
+</head>
+<body>
+	<div id="app">
+		
+	</div>
+
+	<script type="text/javascript" src="vue.js"></script>
+	<script type="text/javascript">
+		//slot:想在组件中使用插槽,组件声明的时候必须在组件的tempalte中插入slot
+		//声明组件
+		var Child={
+			template:`<div>我是子组件</div>`,
+			data(){
+				return {
+					msg:'hello'
+				}
+			},
+			//在Child中获取parent
+			created(){
+				console.log(this.$parent)
+			}
+		}
+
+		var Parent={
+			template:`<div>
+				我是父组件
+				<slot></slot> <!---匿名slot--->
+				<slot name="hello"></slot> <!---name是hello的slot--->
+				<child ref="childs"></child><!---ref="childs"在mounted中要用--->
+				</div>`,
+			//在父组件中使用子组件
+			components: {
+				Child
+			},
+			data(){
+				return{
+					parents:'我是父组件'
+				}
+			},
+			//当Parent组件加载后执行
+			mounted(){
+				//输出所有子组件
+				// console.log(this.$refs.childs)
+				// console.log(this.$refs.childs.$el)
+			}
+		}
+
+		new Vue({
+			el:'#app',
+			//注册组件
+			components:{
+				Parent
+			},
+			//使用组件
+			template:`
+				<div>
+					<parent>
+						<div>组件里的插槽内容</div><!--会插入到匿名slot-->
+						<div>组件里的插槽内容2</div><!--会插入到匿名slot-->
+						<div slot="hello">组件里slot名称是hello的插槽内容3</div>
+					</parent>
+				</div>
+			`,
+			data(){
+				return{}
+			},
+		})
+	</script>
+</body>
+</html>

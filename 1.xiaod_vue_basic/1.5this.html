@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <div id="app"></div>
+
+    <script type="text/javascript" src="vue.js"></script>
+    <script>
+        <!--比较平常的this和vue中的this chrome f12观察-->
+        <!--实际就是window对象-->
+        console.log(this)
+        new Vue({
+            created(){
+                <!--实际就是Vue对象-->
+                console.log(this,'vue的是这个!!!!!!!!!!!!!!')
+            }
+        })
+    </script>
+
+
+
+</body>
+</html>

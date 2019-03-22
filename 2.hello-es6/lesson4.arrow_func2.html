@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        //例子1:
+        let arr=[12,5,8,99,33,14,26];
+        // arr.sort(function(n1,n2){
+        //     return n1-n2;
+        // })
+
+        //function省略()后加=>
+        // arr.sort((n1,n2)=>{
+        //     return n1-n2;
+        // })
+
+        //function省略()后加=>
+        //参数是1个()省略
+        //如果只有一个参数，() 可以省
+        //如果只有一个return，{}可以省
+        arr.sort((n1,n2)=>n1-n2)
+
+        //
+        alert(arr);
+
+        //======================================================
+
+        //例子2:
+        // let show=function(a){
+        //     return a*2;
+        // }
+
+        //function省略()后加=>
+        //参数是1个()省略
+        //如果只有一个参数，() 可以省
+        //如果只有一个return，{}可以省
+        let show=a=> a*2;
+
+
+
+        alert(show(12));
+
+
+    </script>
+
+</head>
+<body>
+
+</body>
+</html>

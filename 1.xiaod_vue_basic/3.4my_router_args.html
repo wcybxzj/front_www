@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>路由的跳转</title>
+</head>
+<body>
+	<div id="app">
+		
+	</div>
+
+
+	<!--
+	第十五讲===>路由的传参和取参
+
+	1. 查询参
+	- 配置（传参）  :to="{name:'login',query:{id:loginid}}"
+	- 获取（取参）  this.$route.query.id
+
+	2. 路由参数
+	- 配置（传参） :to="{name:'register',params:{id:registerid}  }"
+	- 配置路由的规则  { name:'detail',path:'/detail/:id'}
+	- 获取 this.$route.params.id
+
+	总结：
+	1. :to传参的属性里  params是和name配对的   query和name或path都可以
+	2. 使用路由参数必须要配置路由规则里面配置好参数名，否则刷新页面参数会丢失
+	-->
+
+	<script type="text/javascript" src="vue.js"></script>
+	<!-- 引入路由插件 -->
+	<script type="text/javascript" src="vue-router.js"></script>
+	<script type="text/javascript">
+
+		var Login={
+			template:`
+				<div>我是登录页面
+					<span>这是我获取到的参数： {{ msg }}</span>
+				</div>
+			`,
+			data(){
+				return {
+					msg:''
+				}
+			},
+			created(){
+				//这里一定要主要用的是$route
+				this.msg=this.$route.query.id
+			}
+		}
+
+		var Register={
+			template:`<div>我是注册页面
+					<span>这是我获取到的路由参数-方法1：{{ registerfoo }}</span>
+			</div>`,
+			data(){
+				return {
+					registerfoo:''
+				}
+			},
+			created(){
+				this.registerfoo=this.$route.params.foo
+			}
+		}
+
+		var Buy={
+			template:`<div>我是购买页面
+					<span>这是我获取到的路由参数-方法2：{{ foo123 }}</span>
+			</div>`,
+
+			props:['foo123'],
+		}
+
+
+		//安装路由插件
+		Vue.use(VueRouter);
+		//创建路由对象
+		var router= new VueRouter({
+			//配置路由对象
+			routes:[
+					{path:'/login',name:'login',component:Login},
+					//获取模板中参数
+					{path:'/register/:foo',name:'register',component:Register },
+					//获取模板中参数
+					{path:'/buy/:foo123', name:'buy', props:true, component:Buy },
+			]
+		})
+		new Vue({
+			el:'#app',
+			router,
+			template:`
+				<div>
+					<!--点击后: http://192.168.1.177/vue_www/1.xiaod_basic/3.4my_router_args.html#/login?id=123--->
+					<router-link :to="{name:'login', query:{id:'123'} }">去登录</router-link>
+
+					<!---点击后: http://192.168.1.177/vue_www/1.xiaod_basic/3.4my_router_args.html#/register/bar--->
+					<router-link :to="{name:'register', params:{foo:'bar'}}">去注册</router-link>
+
+					<!---点击后: http://192.168.1.177/vue_www/1.xiaod_basic/3.4my_router_args.html#/buy/bar--->
+					<router-link :to="{name:'buy', params:{foo123:'bar123'}}">去注册</router-link>
+
+					<button @click='jslink'>js跳转去登录</button>
+
+					<router-view :key="$route.fullPath"></router-view>
+
+				</div>
+			`,
+			data(){
+				return {}
+			},
+			methods:{
+				//js跳转传参是一样的
+				jslink(){
+					this.$router.push({name:'login',query:{id:'456'}})
+				}
+			}
+		})
+	</script>
+</body>
+</html>

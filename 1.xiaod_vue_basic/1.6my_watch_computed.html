@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+</head>
+<body>
+	<div id="app0">
+		<div>watch监听数据</div>
+		mymsg:
+		<input type="text" name="" v-model='mymsg1'><br>
+
+		mymsg2:
+		<input type="text" name="" v-model='mymsg2'><br>
+
+		mymsg3:
+		<input type="text" name="" v-model='mymsg3.text'><br>
+	</div>
+
+	<div id="app1">
+		<div>computed计算属性</div>
+		(<input type="text" name="" v-model='n1'>+
+		<input type="text" name="" v-model='n2'>)*
+		<input type="text" name="" v-model='n3'>={{n4}}
+	</div>
+
+	<script type="text/javascript" src="vue.js"></script>
+	<script type="text/javascript">
+		new Vue({
+			el:'#app0',
+			data(){
+				return {
+                    mymsg1:'',
+                    mymsg2:'',
+                    mymsg3:{text:''},
+				}
+			},
+			watch:{
+                //普通的watch1
+                mymsg1(newval, oldval){
+                    <!--chrome f2->Consloe 输入内容进行调试-->
+					console.log(newval, oldval)
+				},
+
+				//普通的watch2
+                mymsg2(newval, oldval){
+					if (newval=='love'){
+						alert(newval)
+					}
+                },
+
+                //深度的watch,用来监控变量是复杂类型(arr或者object)里面的属性
+				mymsg3:{
+					handler(newval, oldval){
+                        if (newval.text == 'dabing') {
+                            alert(newval.text)
+                        }
+                    },
+					deep:true
+				}
+			}
+		})
+
+        new Vue({
+            el:'#app1',
+            data() {
+                return {
+					n1:'',
+					n2:'',
+					n3:'',
+				}
+            },
+
+			computed:{
+                n4(){
+                    return (Number(this.n1)+Number(this.n2))*Number(this.n3)
+                }
+			},
+        })
+
+	</script>
+</body>
+</html>

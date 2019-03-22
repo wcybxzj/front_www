@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>父子组件的通信</title>
+</head>
+<body>
+	<div id="app">
+		
+	</div>
+
+	<script type="text/javascript" src="vue.js"></script>
+	<script type="text/javascript">
+		//父组件向子组件通讯
+		//子组件用props收到属性后可以在tempalte直接用
+		var Child={
+			template:`<div>我是子组件:{{sendchild}}</div>`,
+			props:['sendchild']
+		}
+
+		//父组件通过属性sendchild传递数据给子组件
+		var Parent={
+			template:`<div>
+			我是父组件:
+			<child sendchild='父亲给儿子的'></child>
+			</div>`,
+			components: {
+				Child
+			}
+		}
+
+		new Vue({
+			el:'#app',
+			components:{
+				Parent
+			},
+			template:`
+				<div>
+				<parent></parent>
+				</div>
+			`,
+			data(){
+				return {
+
+				}
+			},
+		})
+	</script>
+</body>
+</html>

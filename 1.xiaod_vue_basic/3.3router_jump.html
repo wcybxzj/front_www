@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>路由的跳转</title>
+</head>
+<body>
+	<div id="app">
+		
+	</div>
+
+	<script type="text/javascript" src="vue.js"></script>
+	<!-- 引入路由插件 -->
+	<script type="text/javascript" src="vue-router.js"></script>
+	<script type="text/javascript">
+
+		var Login={
+			template:`
+				<div>我是登录页面</div>
+			`,
+		}
+		var Register={
+			template:`
+				<div>我是注册页面</div>
+			`,
+		}
+		var Buy={
+			template:`
+				<div>我要买东西</div>
+			`,
+		}
+		//安装路由插件
+		Vue.use(VueRouter);
+		//创建路由对象
+		var router= new VueRouter({
+			//配置路由对象
+			routes:[
+				{path:'/login',name:'login',component:Login},
+				{path:'/register',name:'register',component:Register},
+				{path:'/buy',name:'buy',component:Buy},
+			]
+		})
+		new Vue({
+			el:'#app',
+			router,
+			template:`
+				<div>
+					<router-link to='/login'>去登录</router-link>
+					|
+					<router-link to='/register'>去注册</router-link>
+					<div>
+						<button @click='goregister'>我要去买东西</button>
+						<button @click='back'>返回上一页</button>
+					</div>
+					<router-view></router-view>
+				</div>
+			`,
+			data(){
+				return {}
+			},
+			methods:{
+				goregister(){
+					//push跟replace是达到同样效果，但是replace是不会向history插入记录
+					// this.$router.push({path:'/register'})
+					this.$router.replace({path:'/buy'})
+					
+				},
+				back(){
+					this.$router.go(-1)
+				}
+			}
+		})
+	</script>
+</body>
+</html>
