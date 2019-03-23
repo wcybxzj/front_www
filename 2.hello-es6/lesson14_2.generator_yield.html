@@ -1,0 +1,27 @@
+<html>
+
+<head>
+    <script>
+        //yield返回
+
+        //输出:
+        function *show() {
+            console.log('aaaaa');
+            yield 12;
+            console.log('bbbbb');
+            return 55;
+        }
+
+        let gen = show();
+        let r1 = gen.next();//aaaaa
+        console.log(r1);//{value:12, done:false}
+        let r2 = gen.next();//bbbbb
+        console.log(r2);//{value:55, done:true}
+    </script>
+</head>
+
+<body>
+
+
+</body>
+</html>

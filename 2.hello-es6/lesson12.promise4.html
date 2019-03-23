@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://192.168.1.177/frontend_www/2.hello-es6/jquery.js"></script>
+    <script>
+
+
+
+        //jquery不用你封装$.ajax()本身就会返回Promise对象
+        Promise.all(
+            [
+                $.ajax({url:'data/arr.txt', dataType:'json'}),
+                $.ajax({url:'data/json.txt', dataType:'json'}),
+            ]
+        ).then(
+            function (r1) {
+                let [arr1, json1] = r1;
+                console.log("异步请求全部都成功了");
+                console.log(arr1, json1);
+            },
+            function () {
+                console.log("异步请求全部都失败了");
+            }
+        );
+        console.log("业务不会阻塞!!!!!!!!");
+        console.log("业务不会阻塞!!!!!!!!");
+        console.log("业务不会阻塞!!!!!!!!");
+        console.log("业务不会阻塞!!!!!!!!");
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

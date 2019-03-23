@@ -1,0 +1,33 @@
+<html>
+
+<head>
+    <script>
+        //yield传参例子
+
+        //输出:
+        // 11,22
+        // aaaaa
+        // bbbbb
+        // 5
+        function *show(num1, num2) {
+            console.log(`${num1},${num2}`);
+            console.log('aaaaa');
+
+            let re = yield;
+            console.log('bbbbb');
+
+            console.log(re);
+        }
+
+        let gen = show(11,22);
+        gen.next(12);
+        gen.next(5);
+
+    </script>
+</head>
+
+<body>
+
+
+</body>
+</html>

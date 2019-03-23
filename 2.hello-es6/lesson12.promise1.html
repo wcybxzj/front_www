@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://192.168.1.177/frontend_www/2.hello-es6/jquery.js"></script>
+    <script>
+
+        console.log("11111");
+
+        //resolve:成功, reject:失败
+        let p  = new Promise(
+            function(resolve, reject){
+
+                //resolve([11,22]);
+
+                $.ajax({
+                    url:'data/arr.txt',
+                    dataType:'json',
+                    success(arr){
+                        resolve(arr);
+                    },
+                    error(err){
+                        reject(err);
+                    }
+                })
+            }
+        );
+
+        p.then(
+            function (arr) {
+                console.log('成功:'+arr);
+            },
+            function () {
+                console.log('失败:');
+            }
+        );
+
+        console.log("2222");
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

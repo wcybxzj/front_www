@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script>
+        //父类
+        function User(name, pass){
+            this.name=name;
+            this.pass=pass;
+        }
+
+        User.prototype.showName=function () {
+            return this.name;
+        }
+
+        User.prototype.showPass=function () {
+            return this.pass;
+        }
+
+        //老版本继承
+        function VipUser(name, pass, level) {
+            User.call(this, name, pass);
+            this.level = level;
+        }
+        VipUser.prototype=new User();
+        VipUser.prototype.constructor=VipUser;
+
+        VipUser.prototype.showLevel=function(){
+            return this.level;
+        }
+
+        var v1 = new VipUser('ybx','12345',111);
+        console.log(v1.showName());
+        console.log(v1.showPass());
+        console.log(v1.showLevel());
+
+        //新版本继承
+        class VipUser2 extends User{
+            constructor(name, pass, level){
+                super(name, pass);
+                this.level=level;
+            }
+
+            showLevel(){
+                return this.level;
+            }
+        }
+
+        var v2 = new VipUser2('wc','789',222);
+        console.log(v2.showName());
+        console.log(v2.showPass());
+        console.log(v2.showLevel());
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

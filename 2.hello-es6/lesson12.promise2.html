@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://192.168.1.177/frontend_www/2.hello-es6/jquery.js"></script>
+    <script>
+
+        //resolve:成功, reject:失败
+        let p1  = new Promise(
+            function(resolve, reject){
+                $.ajax({
+                    url:'data/arr.txt',
+                    dataType:'json',
+                    success(arr){
+                        resolve(arr);
+                    },
+                    error(err){
+                        reject(err);
+                    }
+                })
+            }
+        );
+
+        //resolve:成功, reject:失败
+        let p2 = new Promise(
+            function(resolve, reject){
+                $.ajax({
+                    url:'data/json.txt',
+                    dataType:'json',
+                    success(arr){
+                        resolve(arr);
+                    },
+                    error(err){
+                        reject(err);
+                    }
+                })
+            }
+        );
+
+
+        //================================================================
+
+        //不推荐的写法
+        p1.then(
+            function (arr) {
+                alert('p1成功:'+arr);
+                p2.then(
+                    function (json) {
+                        console.log('p2成功:'+json);
+                    },
+                    function () {
+                        console.log('p2失败:');
+                    }
+                );
+            },
+            function () {
+                console.log('p1失败:');
+            }
+        );
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+<html>
+
+<head>
+    <script>
+        function show() {
+            console.log('a')
+            console.log('b')
+        }
+        show() // 普通函数
+
+        function *show2() {
+            console.log('1')
+            yield
+            console.log('2')
+        }
+        let genObj = show2()
+        genObj.next() // 1
+        genObj.next() // 2
+        genObj.next() // 最后了，没有结果
+    </script>
+</head>
+
+<body>
+
+
+</body>
+</html>

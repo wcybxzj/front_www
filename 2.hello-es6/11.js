@@ -10,6 +10,7 @@ console.log(json)
 
 var a = 12, b = 5
 console.log({a:a, b:b})
+//es6名字和值一样可以只写一个
 console.log({a, b})
 console.log({a, b, c:"c"})
 console.log({ a, b, show(){ console.log('a')}})
