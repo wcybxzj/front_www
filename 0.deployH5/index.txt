@@ -45,6 +45,7 @@ server {
 }
 ==============================================================================
 5.为了避免访问d.com时候报错Invalid Host header
+vim build/webpack.dev.conf.js
 增加不检查host那一行
 	watchOptions: {
 	  poll: config.dev.poll,

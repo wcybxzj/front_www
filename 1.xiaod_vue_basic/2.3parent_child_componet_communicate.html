@@ -6,12 +6,17 @@
 </head>
 <body>
 	<div id="app">
-		
+
 	</div>
 
 	<script type="text/javascript" src="vue.js"></script>
 	<script type="text/javascript">
-		//子组件定义好了props直接用
+        //父组件向子组件传递数据:
+		//子组件:定义好了props,然后直接在tempalte中接受父组件传递过来的数据
+
+        //子组件向父组件传递数据:
+        //子组件:$emit(自定义标签baba)
+        //父组件:通过在使用子组件加个自定义标签baba
 		var Child={
 			template:`
 				<div>
@@ -32,8 +37,7 @@
 			template:`
 				<div>
 				我是父组件{{ msg }}
-				<child sendchild='父亲给你的' @baba='reserve'></child>
-
+				<child sendchild='父亲给你的' @baba='reserve'></child><!--使用子组件--->
 				</div>
 			`,
 			components:{
@@ -50,7 +54,7 @@
 				}
 			}
 		}
-		
+
 		new Vue({
 			el:'#app',
 			components:{
@@ -58,7 +62,7 @@
 			},
 			template:`
 				<div>
-				<parent></parent>
+				<parent></parent><!--使用父组件--->
 				</div>
 			`,
 			data(){
